@@ -1,7 +1,12 @@
+import OrderIcon from 'components/icon'
+import useSortable from 'hooks'
 import { TransactionData } from 'models'
 import { formatDate } from 'utils'
 
 export default function Table({ tableData }: { tableData: TransactionData[] }) {
+  const { txnData, handleSort, config } = useSortable(tableData)
+
+  const Order = () => <OrderIcon config={config} />
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -19,10 +24,22 @@ export default function Table({ tableData }: { tableData: TransactionData[] }) {
             TXN id
           </th>
           <th scope="col" className="px-6 py-3">
-            Date
+            <div
+              onClick={() => handleSort('date')}
+              className="flex items-center cursor-pointer"
+            >
+              Date
+              <Order />
+            </div>
           </th>{' '}
           <th scope="col" className="px-6 py-3">
-            Amount
+            <div
+              onClick={() => handleSort('amount')}
+              className="flex items-center cursor-pointer"
+            >
+              Amount
+              <Order />
+            </div>
           </th>
           <th scope="col" className="px-6 py-3">
             Currency
@@ -39,12 +56,15 @@ export default function Table({ tableData }: { tableData: TransactionData[] }) {
         </tr>
       </thead>
       <tbody>
-        {tableData.map(
+        {txnData.map(
           (
             { id, date, amount, type, category, accountName, currency },
             index
           ) => (
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr
+              key={id}
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            >
               <td className="px-6 py-4">{index + 1}</td>
               <td className="px-6 py-4">{id}</td>
               <td className="px-6 py-4">{formatDate(date)}</td>
