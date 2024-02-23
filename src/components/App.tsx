@@ -10,7 +10,7 @@ function App() {
     fetchTableData().then((data) => {
       setTableData(data)
     })
-  })
+  }, [])
 
   return (
     <div className="relative overflow-hidden bg-white">

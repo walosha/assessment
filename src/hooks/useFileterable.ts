@@ -1,7 +1,14 @@
+import { Fileterbales } from 'components/table'
 import { Order, TransactionData, TransactionDataKeys } from 'models'
 import { useState } from 'react'
 
-export default function useSortable(txnData: TransactionData[]) {
+export default function useFilterable(
+  txnData: TransactionData[],
+  key: Fileterbales,
+  options: any
+) {
+  console.log({ txnData, key, options })
+
   const [config, setConfig] = useState<null | {
     key: TransactionDataKeys
     order: Order
