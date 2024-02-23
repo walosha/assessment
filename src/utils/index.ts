@@ -1,3 +1,6 @@
-export function classNames(...classes: unknown[]): string {
-  return classes.filter(Boolean).join(' ')
+import { format, parseISO } from 'date-fns'
+
+export function formatDate(date: string) {
+  const dateFormatted = format(parseISO(date), 'dd.MM.yyyy')
+  return dateFormatted
 }
